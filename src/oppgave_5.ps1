@@ -13,7 +13,7 @@ $cards = $response.Content | ConvertFrom-Json
 
 $sum = 0
 foreach ($card in $cards) {
-    $sum += switch ($card.value) {
+    $sum = switch ($card.value) {
         'J' {10} 
         'Q' {10}
         'K' {10}
@@ -25,7 +25,7 @@ foreach ($card in $cards) {
 
     $kortstokk = @()
 foreach ($card in $cards) {
-    $kortstokk += $kortstokk + ($card.suit[0] + $card.value)
+    $kortstokk = $kortstokk + ($card.suit[0] + $card.value)
 }
 
 Write-Host "Kortstokk: $kortstokk"

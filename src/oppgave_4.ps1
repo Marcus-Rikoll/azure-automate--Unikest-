@@ -5,8 +5,6 @@ param (
     $UrlKortstokk = "http://nav-deckofcards.herokuapp.com/shuffle"
 )
 
-
-
 $ErrorActionPreference = 'stop'
 
 
@@ -16,7 +14,7 @@ $cards = $response.Content | ConvertFrom-Json
 
 $kortstokk = @()
 foreach ($card in $cards) {
-    $kortstokk += $kortstokk + ($card.suit[0] + $card.value)
+    $kortstokk = $kortstokk + ($card.suit[0] + $card.value)
     
 }
 
