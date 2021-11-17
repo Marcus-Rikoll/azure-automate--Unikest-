@@ -5,5 +5,5 @@ param (
     $Navn
 )
 
-Write-Host "... $Navn!"
-Write-Host '... $navn!'
+Write-Host "Hei $Navn!"
+Write-Host 'God morgen $navn!'
