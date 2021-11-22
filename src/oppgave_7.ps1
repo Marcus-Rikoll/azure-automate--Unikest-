@@ -54,24 +54,44 @@ Write-host "Kortstokk: $(kortstokkPrint($cards))"
 
 function skrivUtResultat {
     param (
-        [string]
-        $vinner,        
-        [object[]]
-        $kortStokkMagnus,
-        [object[]]
-        $kortStokkMeg   
+        [Parameter()]
+        [System.Object[]]
+        $meg,
+        [Parameter()]
+        [System.Object[]]
+        $Magnus
+
     )
-Write-Output "Vinner: $vinner"
-Write-Output "magnus | $(sumPoengKortstokk -kortstokk <#?#>) | $(<#?#> -kortstokk $kortStokkMagnus)"    
-Write-Output "meg    | $(sumPoengKortstokk -kortstokk <#?#>) | $(<#?#> -kortstokk $kortStokkMeg)"
-    }
+    $megPoeng = sum($meg)
+    $magnusPoeng = sum($Magnus)
 
-    if ((sumPoengKortstokk -kortstokk $meg) -eq $blackjack) {
-        skrivUtResultat -vinner <#?#> -kortStokkMagnus <#?#> -kortStokkMeg <#?#>
-        exit
-    }
+    if ( $megPoeng -eq 21 -and $magnusPoeng -eq 21) {
+        #Draw
+        Write-Host "Vinner: Uavgjort"
+}
 
-    elseif ((sumPoengKortstokk -kortstokk <#?#>) -eq $blackjack) {
-        skrivUtResultat -vinner "magnus" -kortStokkMagnus <#?#> -kortStokkMeg <#?#>
-        exit
-    }
+    elseif ($megPoeng -eq 21) {
+        # Meg Vant
+        Write-host "Vinner: Meg"
+}
+
+    elseif ($magnusPoeng -eq 21) {
+        # Magnus Vant
+        Write-Host "Vinner: Magnus"
+
+}
+    else {
+        #Ukjent
+        Write-Host "Ukjent resultat"
+
+}
+
+    Write-Host "Meg  $megPoeng | $(kortstokkPrint($meg))"
+    Write-Host "Magnus $magnusPoeng | $(kortstokkPrint($Magnus))"
+    
+}
+
+    Write-Host "Kortstokk: $(kortstokkPrint($cards))"
+    Write-Host "Poengsum: $(sum($cards))"
+
+
