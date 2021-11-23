@@ -78,12 +78,14 @@ function skrivUtResultat {
     elseif ($megPoeng -eq 21) {
         # Meg Vant
         Write-host "Vinner: Meg"
+        Write-Host "Taper: Magnus"
        
     }       
 
     elseif ($magnusPoeng -eq 21) {
         # Magnus Vant
         Write-Host "Vinner: Magnus"
+        Write-Host "Taper: Meg"
         
     }
     Write-Host "Meg:  $megPoeng | $(kortstokkPrint($meg))"
