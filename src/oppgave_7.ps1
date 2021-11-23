@@ -11,16 +11,29 @@ $response = Invoke-WebRequest -Uri $UrlKortstokk
 
 $cards = $response.Content | ConvertFrom-Json
 
-$sum = 0
-foreach ($card in $cards) {
-    $sum += switch ($card.value) {
-        'J' {10} 
-        'Q' {10}
-        'K' {10}
-        'A' {11}
-        Default { $card.value }
-
+function sum {
+    
+    param (
+        [Parameter()]
+        [object[]]
+        $cards
+    )
+    
+    $sum = 0
+    foreach ($card in $cards) {
+        $sum += switch ($card.value) {
+    
+            'J' { 10 } 
+            'Q' { 10 }
+            'K' { 10 }
+            'A' { 11 }
+            Default {
+                $card.value
+     
+            }
+        }
     }
+    $sum
 }
 
 function kortstokkPrint {
@@ -30,27 +43,19 @@ function kortstokkPrint {
         $cards
     )
     
-
-
     $kortstokk = @()
-foreach ($card in $cards) {
-    $kortstokk = $kortstokk + ($card.suit[0] + $card.value)
+    foreach ($card in $cards) {
+        $kortstokk = $kortstokk + ($card.suit[0] + $card.value)
     }
 
     $kortstokk
 }
 
-Write-Host "Kortstokk: $(kortstokkPrint($cards))"
-Write-Host "Poengsum: $sum"
 
 $meg = $cards[0..1]
 $cards = $cards[2..$cards.Length]
-$Magnus = $cards[0..1]
+$magnus = $cards[0..1]
 $cards = $cards[2..$cards.Length]
-
-Write-Host "meg $(kortstokkPrint($meg))"
-Write-host "Magnus $(kortstokkPrint($Magnus))"
-Write-host "Kortstokk: $(kortstokkPrint($cards))"
 
 function skrivUtResultat {
     param (
@@ -59,39 +64,38 @@ function skrivUtResultat {
         $meg,
         [Parameter()]
         [System.Object[]]
-        $Magnus
+        $magnus
 
     )
     $megPoeng = sum($meg)
-    $magnusPoeng = sum($Magnus)
+    $magnusPoeng = sum($magnus)
 
     if ( $megPoeng -eq 21 -and $magnusPoeng -eq 21) {
         #Draw
-        Write-Host "Vinner: Uavgjort"
-}
+        Write-Host "Vinner: Uavgjort" 
+    }
 
     elseif ($megPoeng -eq 21) {
         # Meg Vant
         Write-host "Vinner: Meg"
-}
+       
+    }       
 
     elseif ($magnusPoeng -eq 21) {
         # Magnus Vant
         Write-Host "Vinner: Magnus"
-
-}
-    else {
-        #Ukjent
-        Write-Host "Ukjent resultat"
-
+        
+    }
+    Write-Host "Meg:  $megPoeng | $(kortstokkPrint($meg))"
+    Write-Host "Magnus: $magnusPoeng | $(kortstokkPrint($magnus))"
 }
 
-    Write-Host "Meg  $megPoeng | $(kortstokkPrint($meg))"
-    Write-Host "Magnus $magnusPoeng | $(kortstokkPrint($Magnus))"
-    
-}
+skrivUtResultat -meg $meg -magnus $magnus 
 
-    Write-Host "Kortstokk: $(kortstokkPrint($cards))"
-    Write-Host "Poengsum: $(sum($cards))"
+Write-Host "kortstokk: $(kortstokkPrint($cards))"
+Write-Host "Poengsum: $(sum($cards))"
+
+
+
 
 
