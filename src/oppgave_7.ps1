@@ -72,7 +72,7 @@ function skrivUtResultat {
 
     if ( $megPoeng -eq 21 -and $magnusPoeng -eq 21) {
         #Draw
-        Write-Host "Vinner: Uavgjort" 
+        Write-Host "Uavgjort" 
     }
 
     elseif ($megPoeng -eq 21) {
