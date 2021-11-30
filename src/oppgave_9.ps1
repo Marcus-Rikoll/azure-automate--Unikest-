@@ -88,8 +88,8 @@ Write-Host "kortstokk: $(kortstokkPrint($cards))"
 Write-Host "Poengsum: $(sum($cards))"
 
 while ((sum -cards $meg) -lt 17) {
-    $meg += $kortstokk[0]
-    $kortstokk = $kortstokk[1..$cards.Length]
+    $meg += $cards[0]
+    $cards = $cards[1..$cards.Length]
 }
 
 if ((sum -cards $meg) -gt $blackjack) {
@@ -98,8 +98,8 @@ if ((sum -cards $meg) -gt $blackjack) {
 }
 
 while ((sum -cards $magnus) -le (sum -cards $meg)) {
-    $magnus += $kortstokk[0]
-    $kortstokk = $kortstokk[1..$cards.Length]
+    $magnus += $cards[0]
+    $cards = $cards[1..$cards.Length]
 }
 
 ### Magnus taper spillet dersom poengsummen er høyere enn 21
