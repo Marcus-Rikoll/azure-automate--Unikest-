@@ -54,9 +54,9 @@ function skrivUtResultat {
         [string]
         $vinner,        
         [object[]]
-        $kortStokkMagnus,
+        $magnusPoeng,
         [object[]]
-        $kortStokkMeg   
+        $megPoeng   
 
     )
     $megPoeng = sum($meg)
@@ -93,7 +93,7 @@ while ((sum -cards $meg) -lt 17) {
 }
 
 if ((sum -cards $meg) -gt $blackjack) {
-    skrivUtResultat -vinner "magnus" -kortStokkMagnus $magnus -kortStokkMeg $meg
+    skrivUtResultat -vinner "magnus" -magnusPoeng $magnus -megPoeng $meg
     exit
 }
 
@@ -104,7 +104,7 @@ while ((sum -cards $magnus) -le (sum -cards $meg)) {
 
 ### Magnus taper spillet dersom poengsummen er høyere enn 21
 if ((sum -cards $magnus) -gt $blackjack) {
-    skrivUtResultat -vinner "Meg" -kortStokkMagnus $magnus -kortStokkMeg $meg
+    skrivUtResultat -vinner "Meg" -magnusPoeng $magnus -megPoeng $meg
     exit
 }
 
